@@ -1,0 +1,6 @@
+---
+- name: "install docker"
+  import_playbook: docker.yml
+
+- name: "deploiement de wordpress"
+  import_playbook: wordpress.yml

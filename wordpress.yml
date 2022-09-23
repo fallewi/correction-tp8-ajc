@@ -1,0 +1,23 @@
+---
+- name: "installation"
+  hosts: prod
+  become: yes
+  vars:
+    system_user: vagrant
+
+  vars_files:
+    - files/secrets/credentials.yml
+  pre_tasks:
+
+    - name: "Creation du user"
+      user:
+        name: www-data
+        state: present
+
+    - name: "installation de docker-compose"
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-Linux-x86_64"
+        dest: /usr/bin/docker-compose
+        mode: 'u+x,g+x'
+  roles:
+    - { role: ansible-role-containerized-wordpress}
